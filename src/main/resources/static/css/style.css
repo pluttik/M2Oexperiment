@@ -1,0 +1,10 @@
+.tablemain {
+    border-collapse: collapse;
+}
+.tableheader {
+    font-weight: bold;
+}
+.tablecell {
+    padding: 10px;
+    border: 1px solid black;
+}
