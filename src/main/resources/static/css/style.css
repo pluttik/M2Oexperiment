@@ -3,6 +3,8 @@
 }
 .tableheader {
     font-weight: bold;
+    padding: 10px;
+    border: 1px solid black;
 }
 .tablecell {
     padding: 10px;

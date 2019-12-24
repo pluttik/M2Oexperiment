@@ -14,9 +14,9 @@
 
 <table class="tablemain">
     <tr >
-        <td th:each="title : ${titles}" th:text="${title}" class="tableheader tablecell"></td>
+        <td th:each="title : ${titles}" th:text="${title}" class="tableheader"></td>
     </tr>
-    <tr th:each="result : ${results}">
+    <tr th:each="result : ${results}" class="tablerow">
         <td th:each="cell : ${result}" th:text="${cell}" class="tablecell"></td>
     </tr>
 </table><br>
