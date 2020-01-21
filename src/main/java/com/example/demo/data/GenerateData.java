@@ -9,10 +9,9 @@ public class GenerateData {
     public static void main(String[] args) {
         StringBuilder postcode = new StringBuilder();
 
-
         System.out.println(postcode);
 
-        File myoutput = new File("src/main/resources/dataForEntities.txt");
+        File myoutput = new File("/dataForEntities.txt");
         try {
             PrintWriter printWriter = new PrintWriter(myoutput);
             for (int i = 0; i < 10; i++) { //university

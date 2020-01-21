@@ -4,10 +4,6 @@ import com.example.demo.data.entity.*;
 import com.example.demo.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.*;
-import java.util.*;
-import java.util.stream.Collectors;
-
 @org.springframework.stereotype.Service
 public class Service {
 
@@ -66,44 +62,4 @@ public class Service {
 
     public void saveMember(Member member) { memberRepository.save(member); }
     public void deleteAllMembers() { memberRepository.deleteAll(); }
-
-    public DisplayResultClass readResultsFromFile() {
-        File file = new File("src/main/resources/results.csv");
-        DisplayResultClass results = new DisplayResultClass();
-        results.setTitles(new String[]{"BiJoin","UniList","Bi","UniObj"});
-        String[] nextResult;
-        try {
-            Scanner scanner = new Scanner(file);
-            scanner.nextLine(); // skip titles
-            String[] lineSplit;
-            while (scanner.hasNextLine()) {
-                nextResult = new String[4];
-                lineSplit = scanner.nextLine().split(",");
-                for (int i = 0; i < 4; i++) {
-                    nextResult[i] = lineSplit[i];
-                }
-                results.setResult(nextResult);
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return results;
-    }
-
-    public void writeDataToResultsFile(DisplayResultClass results, String[] newData) {
-        results.setResult(newData);
-        File file = new File("src/main/resources/results.csv");
-        try {
-            FileWriter fileWriter = new FileWriter(file, true);
-            for (int i = 0; i < 4; i++) {
-                fileWriter.write(newData[i] + ",");
-            }
-            fileWriter.write("\n");
-            fileWriter.close();
-        }
-        catch(IOException error) {
-            System.out.println(error.getMessage());
-        }
-    }
 }

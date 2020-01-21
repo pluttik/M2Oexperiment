@@ -1,17 +1,18 @@
 package com.example.demo.web.application;
 
+import com.example.demo.business.service.ResultService;
 import com.example.demo.business.service.Service;
 import com.example.demo.data.ReadAndWriteData;
-import com.example.demo.data.entity.DisplayResultClass;
-import com.example.demo.data.entity.Student;
-import com.example.demo.data.entity.University;
+import com.example.demo.data.entity.Result;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.*;
+import java.util.List;
 
 @Controller
 public class ReadWriteDataController {
@@ -22,22 +23,32 @@ public class ReadWriteDataController {
     @Autowired
     private Service service;
 
+    @Autowired
+    private ResultService resultService;
+
     @GetMapping("/")
     public String readwritedata(Model model) {
-        DisplayResultClass results = service.readResultsFromFile();
-        model.addAttribute("titles", results.getTitles());
-        model.addAttribute("results", results.getResults());
+        List<Result> results = resultService.findAll();
+        String[] titles = {"BiJoin","UniList","Bi","UniObj"};
+        model.addAttribute("titles", titles);
+        model.addAttribute("results", results);
         return ("readwritedata_template");
     }
 
-    @PostMapping("do_getdata")
+    @PostMapping("/")
     public String getMoreData(Model model) {
-        String[] newData = readAndWriteData.timeScenarioOne();
-        DisplayResultClass results = service.readResultsFromFile();
-        service.writeDataToResultsFile(results, newData);
-        DisplayResultClass results2 = service.readResultsFromFile();
-        model.addAttribute("titles", results2.getTitles());
-        model.addAttribute("results", results2.getResults());
+        Result emptyResult = new Result(0,0,0,0);
+        Result newData = readAndWriteData.timeScenarioOne();
+        emptyResult.setBiJoin(newData.getBiJoin());
+        emptyResult.setBi(newData.getBi());
+        emptyResult.setUniObj(newData.getUniObj());
+        emptyResult.setUniList(newData.getUniList());
+        resultService.save(emptyResult);
+
+        List<Result> results2 = resultService.findAll();
+        String[] titles = {"BiJoin","UniList","Bi","UniObj"};
+        model.addAttribute("titles", titles);
+        model.addAttribute("results", results2);
         return "readwritedata_template";
     }
 }
