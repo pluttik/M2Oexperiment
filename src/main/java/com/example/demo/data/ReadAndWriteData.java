@@ -11,22 +11,40 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 @Component
 public class ReadAndWriteData {
     private List<String> names = new ArrayList<>();
+    private File file = new File("src/main/resources/dataForEntities.txt");
+    private String[] newData = new String[4];
 
     @Autowired
     private Service service;
 
     public String[] timeScenarioOne() {
-        String[] newData = new String[4];
-        File file = new File("src/main/resources/dataForEntities.txt");
-        names = new ArrayList<>();
+        List<Integer> order = new ArrayList<Integer>(List.of(0,1,2,3));
+        Collections.shuffle(order);
+        for (int i = 0; i < 4; i++) {
+            if (order.get(i) == 0) {
+                runBiJoin();
+            } else if (order.get(i) == 1) {
+                runUniList();
+            } else if (order.get(i) == 2) {
+                runBi();
+            } else {
+                runUniObj();
+            }
+        }
+        return newData;
+    }
+
+    private void runBiJoin() {
         try {
             Scanner scanner = new Scanner(file);
+            names = new ArrayList<>();
             long timeStart = System.currentTimeMillis();
             University university = new University();
             //for (int i = 0; i < 100; i++) {
@@ -53,7 +71,9 @@ public class ReadAndWriteData {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
+    private void runUniList() {
         try {
             Scanner scanner = new Scanner(file);
             names = new ArrayList<>();
@@ -82,7 +102,9 @@ public class ReadAndWriteData {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
+    private void runBi() {
         try {
             Scanner scanner = new Scanner(file);
             names = new ArrayList<>();
@@ -111,7 +133,9 @@ public class ReadAndWriteData {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
+    private void runUniObj() {
         try {
             Scanner scanner = new Scanner(file);
             names = new ArrayList<>();
@@ -140,6 +164,5 @@ public class ReadAndWriteData {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return newData;
     }
 }

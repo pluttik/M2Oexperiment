@@ -5,26 +5,43 @@
     <meta charset="UTF-8">
     <title>ManyToOne</title>
     <link rel="stylesheet" href="css/style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="maindiv">
+    <h2>Comparing efficiencies among Many-To-One implementations in Spring Boot with Hibernate</h2><br>
 
-<h2>Comparing efficiency among Many-To-One implementations in Spring Boot</h2><br>
+    <h3>Raw data (time in ms)</h3>
 
-<h3>Raw data (time in ms)</h3>
+    <p>Time taken to store 1000 data points into MySQL database for four implementations of many-to-one relationships.</p>
 
-<table class="tablemain">
-    <tr >
-        <td th:each="title : ${titles}" th:text="${title}" class="tableheader"></td>
-    </tr>
-    <tr th:each="result : ${results}" class="tablerow">
-        <td th:each="cell : ${result}" th:text="${cell}" class="tablecell"></td>
-    </tr>
-</table><br>
+    <p><b>BiJoin</b> = bidirectional many-to-one join with @JoinColumn<br>
+    <b>UniList</b> = unidirectional many-to-one join with list on the one-side</Object><br>
+    <b>Bi</b> = bidirectional many-to-one join without @JoinColumn<br>
+    <b>UniObj</b> = unidirectional many-to-one join with object on the many-side</p>
 
-<form th:action="@{do_getdata}" method="post">
-    <td><input type="submit" name="submit" value="get more data"></td>
-</form><br>
+    <table class="tablemain">
+        <tr>
+            <td style="background-color: #FCD1E2" class="legendcell">fast</td>
+            <td style="background-color: #F3AAC7" class="legendcell"> </td>
+            <td style="background-color: #E17493" class="legendcell"> </td>
+            <td style="background-color: #D8344A" class="legendcell">slow</td>
+        </tr>
+    </table><br>
 
+    <table class="tablemain">
+        <tr >
+            <td th:each="title : ${titles}" th:text="${title}" class="tableheader"></td>
+        </tr>
+        <tr th:each="result : ${results}" class="tablerow">
+            <td th:each="cell : ${result}" th:text="${cell}" class="tablecell"></td>
+        </tr>
+    </table><br>
+
+    <form th:action="@{do_getdata}" method="post">
+        <td><input type="submit" name="submit" value="get more data"></td>
+    </form><br>
+</div>
 </body>
 <script type="text/javascript" src="js/script.js"></script>
 </html>

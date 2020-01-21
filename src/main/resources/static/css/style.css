@@ -1,3 +1,6 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
 .tablemain {
     border-collapse: collapse;
 }
@@ -6,7 +9,15 @@
     padding: 10px;
     border: 1px solid black;
 }
+.legendcell {
+    padding: 10px;
+    border: 1px solid black;
+}
 .tablecell {
     padding: 10px;
     border: 1px solid black;
+}
+.maindiv {
+    max-width: 960px;
+    margin: auto;
 }
